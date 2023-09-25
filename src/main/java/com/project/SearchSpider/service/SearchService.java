@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class SearchService {
 
-    public void getPage(String query) {
+    public List<SearchResult> getData(String query) {
         query = query.replace(" ", "+");
         List<SearchResult> results = new ArrayList<>();
 
@@ -25,27 +25,18 @@ public class SearchService {
 
             for (Element repository : repositories) {
                 SearchResult sr = new SearchResult();
-                // Extract the link +
                 sr.setLink(repository.getElementsByClass("serp-item__title").attr("href"));
-                // Extract the title +
                 sr.setTitle(repository.getElementsByClass("serp-item__title").text());
-                // Extract the salary +
                 sr.setSalary(repository.getElementsByClass("bloko-header-section-2").text());
-                // Extract the company +
                 sr.setCompany(repository.getElementsByClass("bloko-link bloko-link_kind-tertiary").text());
-                // Extract the location -
                 String loc = repository.getElementsByClass("vacancy-serp-item__info").text();
                 sr.setLocation(loc.replace(sr.getCompany(), ""));
-                // Extract the exp +
                 sr.setExperience(repository.getElementsByClass("bloko-h-spacing-container bloko-h-spacing-container_base-0").text());
                 results.add(sr);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for(SearchResult sr : results) {
-            System.out.println(sr);
-        }
+        return results;
     }
 }
