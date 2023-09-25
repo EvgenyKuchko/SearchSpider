@@ -1,15 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Search</title>
 </head>
 <body>
 <h1>Search Spider</h1>
+
 <form action="/search" method="POST">
   <label for="searchQuery">Enter your query:</label>
   <input type="text" id="searchQuery" name="query" placeholder="your query is here">
   <button type="submit">Submit</button>
 </form>
+
+<div th:if="${searchResults != null and not #lists.isEmpty(searchResults)}">
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Salary</th>
+      <th>Company</th>
+      <th>Location</th>
+      <th>Experience</th>
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${searchResults}">
+      <td th:text="${result.title}"></td>
+      <td th:text="${result.salary}"></td>
+      <td th:text="${result.company}"></td>
+      <td th:text="${result.location}"></td>
+      <td th:text="${result.experience}"></td>
+      <td>
+        <a th:href="${result.link}" target="_blank">link</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>
