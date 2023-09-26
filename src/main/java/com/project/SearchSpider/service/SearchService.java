@@ -1,6 +1,7 @@
 package com.project.SearchSpider.service;
 
 import com.project.SearchSpider.model.SearchResult;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,14 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SearchService {
 
     public List<SearchResult> getData(String query) {
+        log.info("start execution of the getData() method");
         query = query.replace(" ", "+");
         List<SearchResult> results = new ArrayList<>();
 
         try {
-            Document doc = Jsoup.connect("https://rabota.by/search/vacancy?ored_clusters=true&text=" + query + "&search_period=3").get();
+            Document doc = Jsoup.connect("http://rabota.by/search/vacancy?ored_clusters=true&text=" + query + "&search_period=3").get();
+            log.debug("get data page");
 
             Elements repositories = doc.getElementsByClass("serp-item");
 
@@ -35,8 +39,9 @@ public class SearchService {
                 results.add(sr);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error occurred: {}", e.getMessage());
         }
+        log.info("finish execution of the getData() method");
         return results;
     }
 }
