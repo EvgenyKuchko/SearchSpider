@@ -1,0 +1,33 @@
+body {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    background-color: #eee9e2;
+}
+
+.titling {
+    text-align: center;
+}
+
+.logoImg img {
+    width: 20%;
+    height: auto;
+}
+
+.searchForm {
+    display: flex;
+    justify-content: center; /* Горизонтальное выравнивание по центру */
+    align-items: center; /* Вертикальное выравнивание по центру */
+}
+
+.resultsTable {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table, th, td {
+    border: 1px solid;
+    text-align: center;
+}
