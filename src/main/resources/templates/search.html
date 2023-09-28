@@ -2,43 +2,50 @@
 <html lang="en"
       xmlns:th="http://thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Search</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/search.css"/>
+    <title>Search Spider</title>
+    <link rel="icon" href="img/crawling-spider.png">
 </head>
 <body>
-<h1>Search Spider</h1>
+<div class="titling">
+    <div class="logoImg" id="logoImg">
+        <img src="img/crawling-spider.png" alt="logo" class="logoImg">
+    </div>
+    <h1>Search Spider</h1>
+</div>
+<div class="searchForm">
+    <form action="/search" method="POST">
+        <input type="text" id="searchQuery" name="query" placeholder="enter your query here">
+        <button type="submit">Search</button>
+    </form>
+</div>
 
-<form action="/search" method="POST">
-  <label for="searchQuery">Enter your query:</label>
-  <input type="text" id="searchQuery" name="query" placeholder="your query is here">
-  <button type="submit">Submit</button>
-</form>
-
-<div th:if="${searchResults != null and not #lists.isEmpty(searchResults)}">
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Salary</th>
-      <th>Company</th>
-      <th>Location</th>
-      <th>Experience</th>
-      <th>Link</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="result : ${searchResults}">
-      <td th:text="${result.title}"></td>
-      <td th:text="${result.salary}"></td>
-      <td th:text="${result.company}"></td>
-      <td th:text="${result.location}"></td>
-      <td th:text="${result.experience}"></td>
-      <td>
-        <a th:href="${result.link}" target="_blank">link</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div th:if="${searchResults != null and not #lists.isEmpty(searchResults)}" class="resultsTable">
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Salary</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Experience</th>
+            <th>Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${searchResults}">
+            <td th:text="${result.title}"></td>
+            <td th:text="${result.salary}"></td>
+            <td th:text="${result.company}"></td>
+            <td th:text="${result.location}"></td>
+            <td th:text="${result.experience}"></td>
+            <td>
+                <a th:href="${result.link}" target="_blank">link</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>
